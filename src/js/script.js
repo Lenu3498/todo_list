@@ -1,9 +1,12 @@
 
-const inputValue = document.querySelector(".newInput").value;
-const form = document.querySelector(".taskAdder");
-form.addEventListener('submit', addNewTodo)
+const inputValue = document.querySelector("#newInput");
+const form = document.querySelector("#taskAdder");
+const template = `<li class="todo-item">${inputValue}</li>`;
+
+
+const myTodos = document.querySelectorAll("#myTodos");
 
 const addNewTodo = function() {
-
-}
-console.log(inputValue);
+  form.addEventListener('submit', addNewTodo(inputValue));
+  myTodos.innerHTML = template;
+};
