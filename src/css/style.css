@@ -1,0 +1,133 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+html, body, main {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: "Ubuntu", sans-serif, cursive;
+  font-size: 100%;
+  background-color: #7B9095;
+
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  width: 100%;
+  background-image: url("../img/jessica-pamp-Qsc-ewfUJEs-unsplash.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: ;
+  /*border: 2px solid red;*/
+}
+
+h1 {
+  color: black;
+}
+
+.header__title {
+  height: 70%;
+  font-size: 1000%;
+  text-decoration: none;
+  text-align: center;
+  padding-top: 2rem;
+  color: black;
+}
+
+.link__header {
+  text-decoration: none;
+}
+
+.header__subtitle {
+  font-size: 350%;
+  text-align: center;
+}
+
+.container__todo {
+  display: flex;
+  justify-content: space-between;
+  /*background-color: blue;*/
+  /*border: 5px solid green;*/
+  height: 10%;
+  width: 100%;
+  margin: 1rem;
+}
+
+.newInput {
+  background-color: white;
+  text-align: center;
+  padding: 1rem;
+  width: 60%;
+  font-size: 200%;
+}
+
+.submit__Button {
+border: 2px solid black;
+color: white;
+background-color: black;
+width: 30%;
+font-size: 200%;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  background-color: dark-grey;
+  font-size: 150%;
+  height: 20%;
+  width: 100%;
+  /*border: 2px solid black;*/
+}
