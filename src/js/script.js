@@ -10,6 +10,6 @@ form.addEventListener('submit', (event) => {
 
 const addNewTodo = function () {
   const myTodos = document.getElementById("myTodos");
-  const template = `<li class="todoItem">${inputValue}</li>`;
+  const template = `<li class="todoItem">${inputValue.value}</li>`;
   myTodos.innerHTML += template;
 };
