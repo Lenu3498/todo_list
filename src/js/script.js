@@ -8,8 +8,8 @@ form.addEventListener('submit', (event) => {
   inputValue.value = "";
 });
 
-const addNewTodo = function () {
+const addNewTodo = () => {
   const myTodos = document.getElementById("myTodos");
-  const template = `<li class="todoItem">${inputValue.value}</li>`;
+  const template = `<li class="list-group-item">${inputValue.value}</li>`;
   myTodos.innerHTML += template;
 };
