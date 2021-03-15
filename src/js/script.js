@@ -1,12 +1,15 @@
 
-const inputValue = document.querySelector("#newInput");
-const form = document.querySelector("#taskAdder");
-const template = `<li class="todo-item">${inputValue}</li>`;
+const inputValue = document.querySelector('form input [type="text"]');
+const form = document.querySelector("taskAdder");
 
-
-const myTodos = document.querySelectorAll("#myTodos");
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  addNewTodo();
+  inputValue.value = "";
+});
 
 const addNewTodo = function() {
-  form.addEventListener('submit', addNewTodo(inputValue));
-  myTodos.innerHTML = template;
+  const myTodos = document.getElementById("myTodos");
+  const template = `<li class="todoItem">${inputValue}</li>`;
+  myTodos.innerHTML += template;
 };
