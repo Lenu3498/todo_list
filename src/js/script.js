@@ -1,6 +1,6 @@
 
 const inputValue = document.querySelector('form input[type="text"]');
-const form = document.querySelector("taskAdder");
+const form = document.querySelector("form");
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();

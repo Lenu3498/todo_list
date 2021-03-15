@@ -97,11 +97,12 @@ h1 {
 
 .container__todo {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   /*background-color: blue;*/
-  /*border: 5px solid green;*/
+  border: 5px solid green;
   height: 10%;
-  width: 100%;
+  width: 50%;
   margin: 1rem;
 }
 
@@ -119,6 +120,13 @@ color: white;
 background-color: black;
 width: 30%;
 font-size: 200%;
+}
+
+.task__list {
+  font-size: 20px;
+  color: black;
+  width: 50%;
+  border: 5px solid blue; 
 }
 
 .footer {
