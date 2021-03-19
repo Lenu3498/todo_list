@@ -2,6 +2,7 @@
 const inputValue = document.querySelector('form input[type="text"]');
 const form = document.querySelector("form");
 const myTodos = document.getElementById("myTodos");
+let isEditable = false;
 // 1_ create new todo on submit
 //  1a: grab value from text input: const inputValue = querySelect('#InputText).value
 //  1b: listen to submit event and addNewTodo: form.addEventListener('submit', addNewTodo(inputValue))
@@ -21,7 +22,9 @@ form.addEventListener('submit', (event) => {
 // 3c: add template to ul: listEl.innerHTML += template
 
 const addNewTodo = () => {
-  const template = `<li class="list-group-item">${inputValue.value}<span class='edit'> edit </span><span class='delete'> delete</span></li>`;
+  if (inputValue.value === "") return console.log("Enter a new task");
+
+  const template = `<li class="list-group-item"><div class="user__input" contenteditable=${isEditable}>${inputValue.value}</div><span class='edit'> edit </span><span class='delete'> delete</span></li>`;
   myTodos.innerHTML += template;
 };
 
@@ -37,16 +40,27 @@ const deleteElement = (targetItem) => {
   myTodos.removeChild(targetItem.parentElement);
  };
 
+ const editTask = (elementClicked) => {
+  isEditable = true;
+};
+// might be missing correct target? RENDER!
+
 myTodos.addEventListener('click', (event) => {
  console.log(event.target);
  const elementClicked = event.target;
   if (elementClicked.classList.contains("delete")) {
   deleteElement(elementClicked);
 }
+  if (elementClicked.classList.contains('edit')) {
+   editTask(elementClicked);
+}
 });
 //else if (elementClicked.classList.contains("edit")) {
 //    editTask(elementClicked);
 //});
+
+//};
+
 const resetButton = document.getElementById('resetList');
 resetButton.addEventListener('click', () => {
  myTodos.innerHTML = '';
