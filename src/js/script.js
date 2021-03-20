@@ -2,12 +2,8 @@
 const inputValue = document.querySelector('form input[type="text"]');
 const form = document.querySelector("form");
 const myTodos = document.getElementById("myTodos");
-let isEditable = false;
-// 1_ create new todo on submit
-//  1a: grab value from text input: const inputValue = querySelect('#InputText).value
-//  1b: listen to submit event and addNewTodo: form.addEventListener('submit', addNewTodo(inputValue))
-//  1c: clear input value: inputValue = ''
-//  1d: prevent form to submit by default: event.preventDefault();
+//let isEditable = true;
+let todos = [];
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -15,53 +11,86 @@ form.addEventListener('submit', (event) => {
   inputValue.value = "";
 });
 
-// 2_ Add new todo to ul
-// 2a: create addNewTodo function: const addNewTodo = function() { ... }
-// 2b: grab ul element: const listEl = getElementbyId('myTasks)
-// 2c: create new todo template: const template = `<li class="todo-item">${inputValue}</li>`
-// 3c: add template to ul: listEl.innerHTML += template
 
 const addNewTodo = () => {
   if (inputValue.value === "") return console.log("Enter a new task");
 
-  const template = `<li class="list-group-item"><div class="user__input" contenteditable=${isEditable}>${inputValue.value}</div><span class='edit'> edit </span><span class='delete'> delete</span></li>`;
-  myTodos.innerHTML += template;
+const newTodo = {
+  id: (Date.now() + Math.random()).toString(),
+  title: inputValue.value,
+  isEditable: true,
+  isDone: false
 };
 
-// 1_ Delete
-// Add html element "delete" to the li template <span class='edit'>Edit</span> <span class='delete'>-</span>
-// Listen to the click event on the delete element
-// check if the clicked item is the delete element: https://codetogo.io/how-to-check-if-element-has-class-in-javascript/
-// delete item:
-// listEl.removeChild() // https://www.w3schools.com/jsref/met_node_removechild.asp
-// find parent element https://www.w3schools.com/jsref/met_node_removechild.asp
+todos.push(newTodo);
+render();
+};
+
 
 const deleteElement = (targetItem) => {
   myTodos.removeChild(targetItem.parentElement);
  };
 
- const editTask = (elementClicked) => {
-  isEditable = true;
-};
-// might be missing correct target? RENDER!
+function clearElements() {
+  myTodos.innerHTML = "";
+}
+
+function render() {
+  clearElements();
+
+  todos.forEach((todo) => {
+    const template = `<li data-id=${todo.id} class="list-group-item">
+    <input type='checkbox' checkbox=${todo.isDone} />
+    <p class="user__input"
+    contenteditable=true>${todo.title}
+    </p><span class='edit'> edit </span>
+    <span class='delete'> delete</span></li>`;
+    myTodos.innerHTML += template;
+  })
+}
 
 myTodos.addEventListener('click', (event) => {
- console.log(event.target);
  const elementClicked = event.target;
+
   if (elementClicked.classList.contains("delete")) {
   deleteElement(elementClicked);
 }
-  if (elementClicked.classList.contains('edit')) {
-   editTask(elementClicked);
+  if (elementClicked.tagName.toLowerCase() === 'p') {
+  elementClicked.onkeydown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const newText = elementClicked.textContent;
+
+      if(elementClicked.textContent.trim().length < 2) {
+        return alert("Please enter at least two characters")
+      };
+
+      const elementClickedId = elementClicked.parentElement.dataset.id;
+
+      const currTodo = todos.find((todo) => elementClickedId === todo.id);
+
+      currTodo.title = newText;
+
+      currTodo.isEditable = false;
+      render();
+    }
+  }
 }
 });
-//else if (elementClicked.classList.contains("edit")) {
-//    editTask(elementClicked);
-//});
 
-//};
+const deleteItem = (elementClicked) => {
+  const elementClickedId = elementClicked.parentElement.dataset.id;
+  todos = todos.filter((todo, index) => {
+    return todo.id !== elementClickedId;
+  });
+  render();
+};
 
 const resetButton = document.getElementById('resetList');
 resetButton.addEventListener('click', () => {
  myTodos.innerHTML = '';
 });
+
+function clearArray() {
+  todos.splice(0, todos.length)
+};
