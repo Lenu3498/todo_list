@@ -28,7 +28,7 @@ render();
 
 
 const deleteElement = (targetItem) => {
-  myTodos.removeChild(targetItem.parentElement);
+  myTodos.removeChild(targetItem.parentElement.parentElement);
  };
 
 function clearElements() {
@@ -40,11 +40,14 @@ function render() {
 
   todos.forEach((todo) => {
     const template = `<li data-id=${todo.id} class="list-group-item">
-    <input type='checkbox' checkbox=${todo.isDone} />
+    <input class="form-check-input" type='checkbox' checkbox=${todo.isDone} />
     <p class="user__input"
     contenteditable=true>${todo.title}
-    </p><span class='edit'> edit </span>
-    <span class='delete'> delete</span></li>`;
+    </p>
+    <div>
+    <button type="button" class="btn btn-secondary rounded edit">edit</button>
+    <button type="button" class="btn btn-secondary rounded delete">delete</button>
+    </div></li>`;
     myTodos.innerHTML += template;
   })
 }
