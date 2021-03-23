@@ -11,7 +11,6 @@ form.addEventListener('submit', (event) => {
   inputValue.value = "";
 });
 
-
 const addNewTodo = () => {
   if (inputValue.value === "") return console.log("Enter a new task");
 
@@ -26,37 +25,11 @@ todos.push(newTodo);
 render();
 };
 
-
-const deleteElement = (targetItem) => {
-  myTodos.removeChild(targetItem.parentElement.parentElement);
- };
-
-function clearElements() {
-  myTodos.innerHTML = "";
-}
-
-function render() {
-  clearElements();
-
-  todos.forEach((todo) => {
-    const template = `<li data-id=${todo.id} class="list-group-item">
-    <input class="form-check-input" type='checkbox' checkbox=${todo.isDone} />
-    <p class="user__input"
-    contenteditable=true>${todo.title}
-    </p>
-    <div>
-    <button type="button" class="btn btn-secondary rounded edit">edit</button>
-    <button type="button" class="btn btn-secondary rounded delete">delete</button>
-    </div></li>`;
-    myTodos.innerHTML += template;
-  })
-}
-
 myTodos.addEventListener('click', (event) => {
  const elementClicked = event.target;
 
   if (elementClicked.classList.contains("delete")) {
-  deleteElement(elementClicked);
+  deleteItem(elementClicked);
 }
   if (elementClicked.tagName.toLowerCase() === 'p') {
   elementClicked.onkeydown = (event) => {
@@ -81,19 +54,53 @@ myTodos.addEventListener('click', (event) => {
 }
 });
 
+//const deleteElement = (targetItem) => {
+//  myTodos.removeChild(targetItem.parentElement.parentElement);
+//};
+
+function clearElements() {
+  myTodos.innerHTML = "";
+}
+
+function render() {
+  clearElements();
+
+  todos.forEach((todo) => {
+    const template = `<li data-id=${todo.id} class="list-group-item">
+    <input class="form-check-input" type='checkbox' checkbox=${todo.isDone} />
+    <p class="user__input"
+    contenteditable=true>${todo.title}
+    </p>
+    <div>
+    <button type="button" class="btn btn-secondary rounded edit">edit</button>
+    <button type="button" class="btn btn-secondary rounded delete">delete</button>
+    </div></li>`;
+    myTodos.innerHTML += template;
+  })
+}
+
+
+
 const deleteItem = (elementClicked) => {
-  const elementClickedId = elementClicked.parentElement.dataset.id;
+  const elementClickedId = elementClicked.parentElement.parentElement.dataset.id;
   todos = todos.filter((todo, index) => {
     return todo.id !== elementClickedId;
   });
   render();
 };
 
-const resetButton = document.getElementById('resetList');
-resetButton.addEventListener('click', () => {
- myTodos.innerHTML = '';
-});
+//const removeDeletedItem = (deletedItemId, todos) => {
+//  const indexOfDeletedItem = todos.findIndex((todoInArray.id === deletedItemId));
+//  todos.splice(indexOfDeletedItem, 1)
+//}
+
 
 function clearArray() {
   todos.splice(0, todos.length)
 };
+
+const resetButton = document.getElementById('resetList');
+resetButton.addEventListener('click', () => {
+ myTodos.innerHTML = '';
+ clearArray();
+});
