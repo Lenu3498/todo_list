@@ -23,7 +23,25 @@ const newTodo = {
 
 todos.push(newTodo);
 render();
-};
+ };
+
+ function render() {
+   clearElements();
+
+   todos.forEach((todo) => {
+     const template = `<li data-id=${todo.id} class="list-group-item">
+     <input class="form-check-input" type='checkbox' checked!=${todo.isDone} />
+     <p class="user__input"
+     contenteditable=true>${todo.title}
+     </p>
+     <div>
+     <button type="button" class="btn btn-secondary rounded edit">edit</button>
+     <button type="button" class="btn btn-secondary rounded delete">delete</button>
+     </div></li>`;
+     myTodos.innerHTML += template;
+   })
+
+ }
 
 myTodos.addEventListener('click', (event) => {
  const elementClicked = event.target;
@@ -31,6 +49,7 @@ myTodos.addEventListener('click', (event) => {
   if (elementClicked.classList.contains("delete")) {
   deleteItem(elementClicked);
 }
+
   if (elementClicked.tagName.toLowerCase() === 'p') {
   elementClicked.onkeydown = (event) => {
     if (event.key === "Enter") {
@@ -50,9 +69,20 @@ myTodos.addEventListener('click', (event) => {
       currTodo.isEditable = false;
       render();
     }
-  }
+  };
 }
-});
+
+if (elementClicked.tagName.toLowerCase() === "input") {
+    const elementClickedId = elementClicked.parentElement.parentElement.dataset.id;
+    const currTodo = todos.find((todo) => elementClickedId === todo.id);
+    currTodo.checked = true;
+    elementClicked.isEditable = false;
+    elementClicked.isDone = true;
+    console.log("yes it's an input")
+    render();
+}
+  }
+);
 
 //const deleteElement = (targetItem) => {
 //  myTodos.removeChild(targetItem.parentElement.parentElement);
@@ -62,22 +92,7 @@ function clearElements() {
   myTodos.innerHTML = "";
 }
 
-function render() {
-  clearElements();
 
-  todos.forEach((todo) => {
-    const template = `<li data-id=${todo.id} class="list-group-item">
-    <input class="form-check-input" type='checkbox' checkbox=${todo.isDone} />
-    <p class="user__input"
-    contenteditable=true>${todo.title}
-    </p>
-    <div>
-    <button type="button" class="btn btn-secondary rounded edit">edit</button>
-    <button type="button" class="btn btn-secondary rounded delete">delete</button>
-    </div></li>`;
-    myTodos.innerHTML += template;
-  })
-}
 
 
 
