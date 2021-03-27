@@ -189,6 +189,11 @@ font-size: 3em;
   background-color: #7B9095;
 }
 
+.checkedBox {
+  background-color: #7B9095;
+  text-decoration: line-through;
+}
+
 .taskAdder {
   display: flex;
   flex-direction: column;
