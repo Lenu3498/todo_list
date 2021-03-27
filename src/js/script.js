@@ -2,8 +2,9 @@
 const inputValue = document.querySelector('form input[type="text"]');
 const form = document.querySelector("form");
 const myTodos = document.getElementById("myTodos");
-//let isEditable = true;
-let todos = [];
+let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+render();
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -22,8 +23,8 @@ const newTodo = {
 };
 
 todos.push(newTodo);
+save();
 render();
-localStorage.setItem('myTodos', myTodos)
  };
 
  function render() {
@@ -81,12 +82,12 @@ if (elementClicked.tagName.toLowerCase() === "input") {
         currTodo.isEditable = false;
         currTodo.isDone = true;
         console.log("there is a checked element")
-        render();
+        saveAndRender();
 } else {
     currTodo.isEditable = true;
     currTodo.isDone = false;
     console.log("this element is not checked")
-    render();
+    saveAndRender();
   }
 
 }
@@ -110,7 +111,7 @@ const deleteItem = (elementClicked) => {
   todos = todos.filter((todo, index) => {
     return todo.id !== elementClickedId;
   });
-  render();
+  saveAndRender();
 };
 
 //const removeDeletedItem = (deletedItemId, todos) => {
@@ -120,7 +121,9 @@ const deleteItem = (elementClicked) => {
 
 
 function clearArray() {
-  todos.splice(0, todos.length)
+  //todos.splice(0, todos.length)
+  todos = [];
+  saveAndRender();
 };
 
 const resetButton = document.getElementById('resetList');
@@ -128,3 +131,12 @@ resetButton.addEventListener('click', () => {
  myTodos.innerHTML = '';
  clearArray();
 });
+
+function save() {
+  localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+function saveAndRender() {
+  save();
+  render();
+}
